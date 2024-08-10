@@ -2,10 +2,10 @@ Meta-ROS Documentation
 ====================================
 
 .. toctree::
-   :maxdepth: 2
-   :caption: Contents:
+   :hidden:
 
    docs/getting-started.md
+   docs/decomposition/index.md
    docs/execution/index.md
 
 Meta-ROS is a complete rewrite of the original `Meta-Embedded <https://github.com/Meta-Team/Meta-Embedded>`_ project based on ROS 2 (Humble).

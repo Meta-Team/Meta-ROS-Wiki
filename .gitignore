@@ -1,0 +1,5 @@
+# ignore pages build by sphinx
+_build/*
+
+# ignore python cache
+**/__pycache__/

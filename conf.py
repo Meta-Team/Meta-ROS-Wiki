@@ -15,6 +15,8 @@ author = 'Chiming Ni, Xinchen Yao'
 
 extensions = ['myst_parser']
 
+myst_enable_extensions = ['deflist']
+
 templates_path = ['_templates']
 exclude_patterns = ['_build', 'Thumbs.db', '.DS_Store']
 

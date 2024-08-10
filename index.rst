@@ -5,7 +5,8 @@ Meta-ROS Documentation
    :maxdepth: 2
    :caption: Contents:
 
-   getting-started.md
+   docs/getting-started.md
+   docs/execution/index.md
 
 Meta-ROS is a complete rewrite of the original `Meta-Embedded <https://github.com/Meta-Team/Meta-Embedded>`_ project based on ROS 2 (Humble).
 It is designed to be run on embedded Linux devices with RT kernels.
@@ -22,11 +23,3 @@ Why ROS 2?
 ROS 2 provides a great sender-receiver model and a lot of useful tools like ``rviz`` and ``tf2`` that makes robotics
 development much easier. We prefer ROS 2 over ROS mainly because our vision system (which is earlier than this project) is 
 written in ROS 2.
-
-
-Indices and tables
-==================
-
-* :ref:`genindex`
-* :ref:`modindex`
-* :ref:`search`

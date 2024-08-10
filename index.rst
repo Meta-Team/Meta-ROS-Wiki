@@ -5,6 +5,8 @@ Meta-ROS Documentation
    :hidden:
 
    docs/getting-started.md
+   docs/perception/index.md
+   docs/decision/index.md
    docs/decomposition/index.md
    docs/execution/index.md
 

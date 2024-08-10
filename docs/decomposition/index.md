@@ -6,4 +6,5 @@ actual motor commands (usually torque).
 ```{toctree}
 :hidden:
 gimbal-controller
+meta-chassis-controller
 ```

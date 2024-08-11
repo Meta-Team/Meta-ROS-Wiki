@@ -91,6 +91,7 @@ A robot with a DJI GM6020 and MI CyberGear can be configured as follows.
         <param name="motor_id">1</param>
         <param name="mechanical_reduction">1.0</param>
         <param name="offset">0.0</param>
+        <param name="control_mode">dynamic</param>
         <param name="Kp">30.0</param>
         <param name="Kd">1.0</param>
     </joint>

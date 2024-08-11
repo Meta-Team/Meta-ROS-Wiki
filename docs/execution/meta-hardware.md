@@ -36,11 +36,12 @@ To activate a motor network (a series of motors on a can network belonging to a 
 `motor_model`
 : The model name of the motor.
 
-`mechanical_reduction`
-: The mechanical reduction rate of the motor. This is only relevant to motors with internal gearboxes.
-
-`offset`
-: The offset of the motor zero position with respect to joint zero position. This value is always measured in the joint coordinate space.
+`mechanical_reduction` `offset`
+: The mechanical reduction rate of the motor and the offset of the motor zero position with respect to joint zero position.
+  $$
+    \theta_{\text{joint}} = 
+    \frac{\theta_{\text{motor}}}{\text{mechanical\_reduction}} + \text{offset}
+  $$
 
 ### DJI motor params
 
@@ -52,12 +53,38 @@ To activate a motor network (a series of motors on a can network belonging to a 
 `motor_id`
 : The MI motor ID, adjustable via MI motor debugging software.
 
+`control_mode`
+: The operating mode of the motor. Can be `dynamic`, `position`, or `velocity`.
+
+  - Dynamic control mode is a flexible control mode that allows three inputs: `pos_dst`, `vel_dst`, and `t_ff`, the actual torque is computed by th following formula:
+    $$
+    \tau = K_{\text{p}} \cdot (\theta_{\text{dst}} - \theta) + K_{\text{d}} \cdot (\omega_{\text{dst}} - \omega) + \tau_{\text{ff}}
+    $$
+    `MetaRobotMiMotorNetwork` accepts partial inputs to reduce user's complexity:
+      - If only `position` interface is present, `pos_dst = position`, `vel_dst = 0`, `t_ff = 0`.
+      - If only `velocity` interface is present, `pos_dst = 0`, `vel_dst = velocity`, `t_ff = 0`.
+      - If only `effort` interface is present, `pos_dst = 0`, `vel_dst = 0`, `t_ff = effort`.
+      - If both `position` and `effort` interfaces are present, `pos_dst = position`, `vel_dst = 0`, `t_ff = effort`.
+      - If both `velocity` and `effort` interfaces are present, `pos_dst = 0`, `vel_dst = velocity`, `t_ff = effort`.
+      - If all interfaces are present, `pos_dst = position`, `vel_dst = velocity`, `t_ff = effort`.
+      - The combination of `position` and `velocity` interfaces is not considered valid, as this generally doesn't generate a stable system.
+  - Position control mode is an internal dual-loop PI controller that controls the motor's position.
+  - Velocity control mode is an internal PI controller that controls the motor's velocity.
+
+  Please refer to MI motor's documentation for more information on control modes.
+
 `Kp` `Kd`
-: Parameters used in dynamic control mode. Kp stands for proportion (position) and Kd stands for differential (velocity).
+: Parameters used in dynamic control mode. Refer to MI motor's documentation for more information.
+
+`spd_kp` `spd_ki`
+: Parameters used in velocity and position control mode. Refer to MI motor's documentation for more information.
+
+`pos_kp` `pos_ki`
+: Parameters used in position control mode. Refer to MI motor's documentation for more information.
 
 ### Example URDF configuration
 
-A robot with a DJI GM6020 and MI CyberGear can be configured as follows.
+A robot with a DJI GM6020 and MI CyberGear (in dynamic control mode with a target position) can be configured as follows.
 
 ```xml
 <ros2_control name="motor_control_dji" type="system">

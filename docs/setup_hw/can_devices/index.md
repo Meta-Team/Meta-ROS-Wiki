@@ -1,5 +1,10 @@
 # CAN Devices
 
+```{toctree}
+:hidden:
+can_motors/index
+```
+
 Meta-Team robots uses a wide range of CAN devices, mostly motors and encoders. This section provides some basic information on how to use these devices with Meta-ROS.
 
 ## CANable USB to CAN adapter

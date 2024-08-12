@@ -5,5 +5,5 @@ This section includes some basic information on how to set up the computer hardw
 ```{toctree}
 :maxdepth: 1
 minipc
-can_devices
+can_devices/index
 ```

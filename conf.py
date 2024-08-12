@@ -13,9 +13,9 @@ author = 'Chiming Ni, Xinchen Yao'
 # -- General configuration ---------------------------------------------------
 # https://www.sphinx-doc.org/en/master/usage/configuration.html#general-configuration
 
-extensions = ['myst_parser', 'sphinxcontrib.mermaid']
+extensions = ['myst_parser', 'sphinxcontrib.mermaid', "sphinx_design"]
 
-myst_enable_extensions = ['deflist']
+myst_enable_extensions = ['deflist', "colon_fence", "amsmath", "dollarmath", "tasklist"]
 
 templates_path = ['_templates']
 exclude_patterns = ['_build', 'Thumbs.db', '.DS_Store']

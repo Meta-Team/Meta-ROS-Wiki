@@ -38,10 +38,11 @@ To activate a motor network (a series of motors on a can network belonging to a 
 
 `mechanical_reduction` `offset`
 : The mechanical reduction rate of the motor and the offset of the motor zero position with respect to joint zero position.
-  $$
+
+  ```{math}
     \theta_{\text{joint}} = 
-    \frac{\theta_{\text{motor}}}{\text{mechanical\_reduction}} + \text{offset}
-  $$
+    \frac{\theta_{\text{motor}}}{\text{mechanical_reduction}} + \text{offset}
+  ```
 
 ### DJI motor params
 
@@ -57,9 +58,11 @@ To activate a motor network (a series of motors on a can network belonging to a 
 : The operating mode of the motor. Can be `dynamic`, `position`, or `velocity`.
 
   - Dynamic control mode is a flexible control mode that allows three inputs: `pos_dst`, `vel_dst`, and `t_ff`, the actual torque is computed by th following formula:
-    $$
+
+    ```{math}
     \tau = K_{\text{p}} \cdot (\theta_{\text{dst}} - \theta) + K_{\text{d}} \cdot (\omega_{\text{dst}} - \omega) + \tau_{\text{ff}}
-    $$
+    ```
+
     `MetaRobotMiMotorNetwork` accepts partial inputs to reduce user's complexity:
       - If only `position` interface is present, `pos_dst = position`, `vel_dst = 0`, `t_ff = 0`.
       - If only `velocity` interface is present, `pos_dst = 0`, `vel_dst = velocity`, `t_ff = 0`.

@@ -4,12 +4,14 @@
 
 ## List of hardware interfaces
 
-| Motor Vendor | Interface Name             |
-| ------------ | -------------------------- |
-| DJI          | `MetaRobotDjiMotorNetwork` |
-| MI           | `MetaRobotMiMotorNetwork`  |
+| Motor Vendor | Interface Name               |
+| ------------ | ---------------------------- |
+| DJI          | `MetaRobotDjiMotorNetwork`   |
+| MI           | `MetaRobotMiMotorNetwork`    |
+| BRITER       | `MetaRobotBrtEncoderNetwork` |
 
 ## Supported motors
+
 ```{eval-rst}
 +--------------+-------------+----------+
 | Motor vendor | Motor Model | Protocol |
@@ -22,27 +24,32 @@
 +--------------+-------------+----------+
 | MI           | CyberGear   | CAN      |
 +--------------+-------------+----------+
+| BRITER       | BRT38       | CAN      |
++--------------+-------------+----------+
 
 ```
 
 ## URDF configuration
+
 To activate a motor network (a series of motors on a can network belonging to a single vendor), you simply need to create a `ros2_control` tag with motor information in your robot URDF.
 
 ### Motor network params
+
 `can_network_name`
 : The CAN interface name of the CAN network, usually `can0` or `can1`.
 
 ### Common motor params
+
 `motor_model`
 : The model name of the motor.
 
 `mechanical_reduction` `offset`
 : The mechanical reduction rate of the motor and the offset of the motor zero position with respect to joint zero position.
 
-  ```{math}
-    \theta_{\text{joint}} = 
-    \frac{\theta_{\text{motor}}}{\text{mechanical_reduction}} + \text{offset}
-  ```
+```{math}
+  \theta_{\text{joint}} =
+  \frac{\theta_{\text{motor}}}{\text{mechanical_reduction}} + \text{offset}
+```
 
 ### DJI motor params
 
@@ -64,13 +71,15 @@ To activate a motor network (a series of motors on a can network belonging to a 
     ```
 
     `MetaRobotMiMotorNetwork` accepts partial inputs to reduce user's complexity:
-      - If only `position` interface is present, `pos_dst = position`, `vel_dst = 0`, `t_ff = 0`.
-      - If only `velocity` interface is present, `pos_dst = 0`, `vel_dst = velocity`, `t_ff = 0`.
-      - If only `effort` interface is present, `pos_dst = 0`, `vel_dst = 0`, `t_ff = effort`.
-      - If both `position` and `effort` interfaces are present, `pos_dst = position`, `vel_dst = 0`, `t_ff = effort`.
-      - If both `velocity` and `effort` interfaces are present, `pos_dst = 0`, `vel_dst = velocity`, `t_ff = effort`.
-      - If all interfaces are present, `pos_dst = position`, `vel_dst = velocity`, `t_ff = effort`.
-      - The combination of `position` and `velocity` interfaces is not considered valid, as this generally doesn't generate a stable system.
+
+    - If only `position` interface is present, `pos_dst = position`, `vel_dst = 0`, `t_ff = 0`.
+    - If only `velocity` interface is present, `pos_dst = 0`, `vel_dst = velocity`, `t_ff = 0`.
+    - If only `effort` interface is present, `pos_dst = 0`, `vel_dst = 0`, `t_ff = effort`.
+    - If both `position` and `effort` interfaces are present, `pos_dst = position`, `vel_dst = 0`, `t_ff = effort`.
+    - If both `velocity` and `effort` interfaces are present, `pos_dst = 0`, `vel_dst = velocity`, `t_ff = effort`.
+    - If all interfaces are present, `pos_dst = position`, `vel_dst = velocity`, `t_ff = effort`.
+    - The combination of `position` and `velocity` interfaces is not considered valid, as this generally doesn't generate a stable system.
+
   - Position control mode is an internal dual-loop PI controller that controls the motor's position.
   - Velocity control mode is an internal PI controller that controls the motor's velocity.
 

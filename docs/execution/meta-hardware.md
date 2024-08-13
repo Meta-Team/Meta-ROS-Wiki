@@ -91,8 +91,14 @@ To activate a motor network (a series of motors on a can network belonging to a 
 `spd_kp` `spd_ki`
 : Parameters used in velocity and position control mode. Refer to MI motor's documentation for more information.
 
-`pos_kp` `pos_ki`
-: Parameters used in position control mode. Refer to MI motor's documentation for more information.
+`loc_kp`
+: Parameter used in position control mode. Refer to MI motor's documentation for more information.
+
+`limit_spd`
+: Maximum speed limit of the motor in position mode.
+
+`limit_cur`
+: Maximum current limit of the motor in velocity mode.
 
 ### Example URDF configuration
 

@@ -7,6 +7,21 @@ can_motors/index
 
 Meta-Team robots uses a wide range of CAN devices, mostly motors and encoders. This section provides some basic information on how to use these devices with Meta-ROS.
 
+
+## CAN bus
+
+Controller Area Network (CAN) is a robust communication protocol. Multiple devices can be connected to a single CAN bus, and they can communicate with each other.
+
+### Setup
+
+![CAN bus](can_bus.png)
+
+CAN bus uses a two-wire differential signal. The two wires are called `CAN_H` and `CAN_L`. Devices that directly support `CAN_H` and `CAN_L` (most of the motors) can be connected to the CAN bus directly. Some may require an additional transceiver to convert the voltage levels to CAN bus levels.
+
+:::{attention}
+It is generally recommended to use two 120 $\Omega$ resistors at both ends of the CAN bus. Communication may be **very** unreliable without these resistors. Many motors (and CANable) have their built-in resistors that can be toggled on and off.
+:::
+
 ## CANable USB to CAN adapter
 
 [CANable](https://canable.io/) is an open-source USB to CAN adapter. It can be directly recognized as a PCAN device in Linux, provided that you have the necessary kernel modules installed.

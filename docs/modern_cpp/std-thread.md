@@ -70,11 +70,13 @@ public:
     Worker() {
         thread_ = std::jthread(&Worker::run, this);
     }
-    ~Worker() = default;
+    ~Worker() {
+        stop_ = true;
+    }
     
 private:
     void run() {
-        while (true) {
+        while (!stop_) {
             hammer_.hit();
             std::this_thread::sleep_for(std::chrono::seconds(1));
         }
@@ -82,6 +84,7 @@ private:
 
     std::jthread thread_;
     Hammer hammer_;
+    std::atomic<bool> stop_{false};
 };
 ```
 
@@ -93,11 +96,13 @@ public:
     Worker() {
         thread_ = std::jthread(&Worker::run, this);
     }
-    ~Worker() = default;
+    ~Worker() {
+        stop_ = true;
+    }
     
 private:
     void run() {
-        while (true) {
+        while (!stop_) {
             hammer_.hit();
             std::this_thread::sleep_for(std::chrono::seconds(1));
         }
@@ -105,6 +110,7 @@ private:
 
     Hammer hammer_;
     std::jthread thread_;
+    std::atomic<bool> stop_{false};
 };
 ```
 ## `std::stop_token`
